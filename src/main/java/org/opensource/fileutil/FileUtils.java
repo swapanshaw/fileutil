@@ -1,11 +1,14 @@
-package org.opensource.fileutil;
+
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Map;
+import java.util.PriorityQueue;
 
 import org.opensource.fileutil.enums.FileTypeEnum;
 import org.opensource.fileutil.enums.Trie;
+import org.opensource.fileutil.enums.Trie.MinHeapNode;
 
 /**
  * FileUtils help to do different operations on the different type of file Like Search, sort on the content of
@@ -18,8 +21,27 @@ import org.opensource.fileutil.enums.Trie;
 public class FileUtils {
 
     private static Trie trie = new Trie();
-
-    /**
+    
+	public Map<String, Integer> topKfrequentString(String filePath, Integer k) {
+		String ext = checkValidFileExtension(filePath);
+        try {
+            readFile(filePath, ext);
+            return findTopKText(filePath);
+        } catch (NumberFormatException | IOException e) {
+            throw new RuntimeException(e);
+        }
+		
+	}
+    private Map<String, Integer> findTopKText(String filePath) throws IOException {
+    	PriorityQueue<Trie.MinHeapNode> priorityQuery = new PriorityQueue<>(10, (MinHeapNode arg0, MinHeapNode arg1)-> {
+			return arg0.getFrequency() - arg1.getFrequency();
+		});
+    	String ext = checkValidFileExtension(filePath);
+    	readTextFile(filePath, ext);
+    	//trie.inse
+    	return null;
+	}
+	/**
      * This containsString method help to find a particular text in the file exist or not, if exists it return
      * true, else false.
      * 
@@ -29,7 +51,6 @@ public class FileUtils {
      *            is the string which need to be searched in the file
      * @return
      */
-
     public static boolean containsString(final String filePath, final String text) {
         String ext = checkValidFileExtension(filePath);
         try {
@@ -106,12 +127,6 @@ public class FileUtils {
 
     private static boolean findText(final String text) {
         return trie.find(text);
-    }
-
-    public static void main(String args[]) {
-        System.out.println(FileUtils.containsString("/home/sshaw/Desktop/file.txt", "HiHow"));
-
-        System.out.println(FileUtils.containsString("/home/sshaw/Desktop/file.docx", "Hi"));
     }
 
 }

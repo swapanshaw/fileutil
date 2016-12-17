@@ -1,4 +1,4 @@
-package org.opensource.fileutil.enums;
+package org.opensource.fileutil.tri;
 
 import java.util.HashMap;
 import java.util.Map;

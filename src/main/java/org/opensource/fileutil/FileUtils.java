@@ -7,8 +7,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 import org.opensource.fileutil.enums.FileTypeEnum;
-import org.opensource.fileutil.enums.Trie;
-import org.opensource.fileutil.enums.Trie.MinHeapNode;
+import org.opensource.fileutil.tri.Trie;
 
 /**
  * FileUtils help to do different operations on the different type of file Like Search, sort on the content of
@@ -33,9 +32,7 @@ public class FileUtils {
 		
 	}
     private Map<String, Integer> findTopKText(String filePath) throws IOException {
-    	PriorityQueue<Trie.MinHeapNode> priorityQuery = new PriorityQueue<>(10, (MinHeapNode arg0, MinHeapNode arg1)-> {
-			return arg0.getFrequency() - arg1.getFrequency();
-		});
+    	
     	String ext = checkValidFileExtension(filePath);
     	readTextFile(filePath, ext);
     	//trie.inse
